@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight Search Results</title>
+    <title>Flight Search Results - Inspired by Skyscanner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
             text-align: center;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -21,6 +21,9 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .flight {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 15px;
             margin: 10px 0;
             border: 1px solid #ddd;
@@ -28,20 +31,28 @@
             background: #ffffff;
         }
         .flight img {
-            max-width: 100px;
-            display: block;
-            margin: auto;
+            max-width: 80px;
+        }
+        .flight-info {
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 15px;
+        }
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff5733;
         }
         button {
             padding: 10px;
-            background: #ff5733;
+            background: #007bff;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 5px;
         }
         button:hover {
-            background: #c70039;
+            background: #0056b3;
         }
     </style>
 </head>
@@ -75,7 +86,7 @@
             let resultsDiv = document.getElementById("results");
             resultsDiv.innerHTML = "";
             
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 6; i++) {
                 let airline = airlines[Math.floor(Math.random() * airlines.length)];
                 let price = (Math.random() * (1500 - 300) + 300).toFixed(2);
                 let duration = Math.floor(Math.random() * (15 - 5) + 5) + "h " + Math.floor(Math.random() * 60) + "m";
@@ -83,11 +94,13 @@
                 let flightDiv = document.createElement("div");
                 flightDiv.className = "flight";
                 flightDiv.innerHTML = `
-                    <img src="${airline.logo}" alt="${airline.name}" width="100">
-                    <h3>${airline.name}</h3>
-                    <p><strong>From:</strong> ${from} | <strong>To:</strong> ${to}</p>
-                    <p><strong>Class:</strong> ${flightClass} | <strong>Duration:</strong> ${duration}</p>
-                    <p><strong>Price:</strong> $${price}</p>
+                    <img src="${airline.logo}" alt="${airline.name}" width="80">
+                    <div class="flight-info">
+                        <h3>${airline.name}</h3>
+                        <p><strong>From:</strong> ${from} | <strong>To:</strong> ${to}</p>
+                        <p><strong>Class:</strong> ${flightClass} | <strong>Duration:</strong> ${duration}</p>
+                    </div>
+                    <p class="price">$${price}</p>
                     <button>Book Now</button>
                 `;
                 resultsDiv.appendChild(flightDiv);
