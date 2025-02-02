@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .flight {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #ffffff;
+        }
+        .flight img {
+            max-width: 100px;
+            display: block;
+            margin: auto;
+        }
+        button {
+            padding: 10px;
+            background: #ff5733;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #c70039;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flight Search Results</h1>
+        <div id="results"></div>
+    </div>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const from = urlParams.get('from');
+        const to = urlParams.get('to');
+        const date = urlParams.get('date');
+        const flightClass = urlParams.get('class');
+        
+        const airlines = [
+            { name: "American Airlines", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/American_Airlines_logo_2013.svg" },
+            { name: "Delta Airlines", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Delta_logo.svg/1200px-Delta_logo.svg.png" },
+            { name: "Emirates", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Emirates_logo.svg" },
+            { name: "Qatar Airways", logo: "https://upload.wikimedia.org/wikipedia/commons/4/47/Qatar_Airways_Logo.png" },
+            { name: "British Airways", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9f/British_Airways_Logo.svg" },
+            { name: "Lufthansa", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Lufthansa_Logo_2018.svg" },
+            { name: "Singapore Airlines", logo: "https://upload.wikimedia.org/wikipedia/commons/7/74/Singapore_Airlines_Logo.svg" },
+            { name: "Air France", logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Air_France_Logo.svg" },
+            { name: "KLM", logo: "https://upload.wikimedia.org/wikipedia/commons/3/33/KLM_logo.svg" },
+            { name: "Turkish Airlines", logo: "https://upload.wikimedia.org/wikipedia/commons/3/39/Turkish_Airlines_logo_2010.svg" }
+        ];
+        
+        function generateFlightResults() {
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+            
+            for (let i = 0; i < 5; i++) {
+                let airline = airlines[Math.floor(Math.random() * airlines.length)];
+                let price = (Math.random() * (1500 - 300) + 300).toFixed(2);
+                let duration = Math.floor(Math.random() * (15 - 5) + 5) + "h " + Math.floor(Math.random() * 60) + "m";
+                
+                let flightDiv = document.createElement("div");
+                flightDiv.className = "flight";
+                flightDiv.innerHTML = `
+                    <img src="${airline.logo}" alt="${airline.name}" width="100">
+                    <h3>${airline.name}</h3>
+                    <p><strong>From:</strong> ${from} | <strong>To:</strong> ${to}</p>
+                    <p><strong>Class:</strong> ${flightClass} | <strong>Duration:</strong> ${duration}</p>
+                    <p><strong>Price:</strong> $${price}</p>
+                    <button>Book Now</button>
+                `;
+                resultsDiv.appendChild(flightDiv);
+            }
+        }
+        
+        generateFlightResults();
+    </script>
+</body>
+</html>
